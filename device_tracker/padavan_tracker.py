@@ -6,7 +6,7 @@ import voluptuous as vol
 import re
 import homeassistant.helpers.config_validation as cv
 from homeassistant.components.device_tracker import (
-    DOMAIN, PLATFORM_SCHEMA, DeviceScanner)
+    DOMAIN, PLATFORM_SCHEMA, CONF_SCAN_INTERVAL, DeviceScanner)
 from homeassistant.const import CONF_URL, CONF_PASSWORD, CONF_USERNAME
 
 REQUIREMENTS = ['requests==2.13.0']
@@ -36,6 +36,7 @@ class PadavanDeviceScanner(DeviceScanner):
         self.url = config[CONF_URL]
         self.username = config[CONF_USERNAME]
         self.password = config[CONF_PASSWORD]
+        self.scan_interval = config[CONF_SCAN_INTERVAL]
         self.last_results = []
 
         # NOTE: Padavan httpd will even don't check HTTP authorization header if multiple devices connected, if will
@@ -58,7 +59,7 @@ class PadavanDeviceScanner(DeviceScanner):
     def get_device_name(self, mac):
         return None
 
-    def _request(self, path=''):
+    def _request(self, path='', timeout=5):
         import requests
         from requests.auth import HTTPBasicAuth
         from requests.exceptions import HTTPError, ConnectionError, RequestException
@@ -68,7 +69,10 @@ class PadavanDeviceScanner(DeviceScanner):
         r = None
 
         try:
-            r = requests.get(self.url + path, auth=HTTPBasicAuth(self.username, self.password))
+            r = requests.get(
+                self.url + path,
+                auth=HTTPBasicAuth(self.username, self.password),
+                timeout=timeout)
             r.raise_for_status()
         except HTTPError as e:
             error_id = 'status'
@@ -96,8 +100,9 @@ class PadavanDeviceScanner(DeviceScanner):
         """Retrieve latest information from the router."""
         _LOGGER.debug('Polling')
 
-        r_2g = self._request('Main_WStatus2g_Content.asp')
-        r_5g = self._request('Main_WStatus_Content.asp')
+        timeout = int(self.scan_interval.total_seconds()/2)
+        r_2g = self._request('Main_WStatus2g_Content.asp', timeout)
+        r_5g = self._request('Main_WStatus_Content.asp', timeout)
         if 'error_id' in r_2g or 'error_id' in r_5g:
             _LOGGER.error("Can't get connected clients: %s", r_2g['error_msg'] if 'error_msg' in r_2g else
                 r_5g['error_msg'])
