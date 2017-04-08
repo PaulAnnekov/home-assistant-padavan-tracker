@@ -13,10 +13,13 @@ REQUIREMENTS = ['requests==2.13.0']
 
 _LOGGER = logging.getLogger(__name__)
 
+CONF_RSSI = 'rssi'
+
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Optional(CONF_URL, default='http://192.168.1.1/'): cv.string,
     vol.Optional(CONF_USERNAME, default='admin'): cv.string,
     vol.Optional(CONF_PASSWORD, default='admin'): cv.string,
+    vol.Optional(CONF_RSSI): vol.All(vol.Coerce(int), vol.Range(min=-200, max=0)),
 })
 
 
@@ -36,6 +39,7 @@ class PadavanDeviceScanner(DeviceScanner):
         self.url = config[CONF_URL]
         self.username = config[CONF_USERNAME]
         self.password = config[CONF_PASSWORD]
+        self.rssi_min = config.get(CONF_RSSI)
         self.scan_interval = config[CONF_SCAN_INTERVAL]
         self.last_results = []
 
@@ -109,12 +113,19 @@ class PadavanDeviceScanner(DeviceScanner):
             return
 
         self.last_results = []
+        debug = []
         both = r_2g['text'] + r_5g['text']
         for line in both.split('\n'):
             m = re.match("^((.{2}:){5}.{2}) ", line)
             if m:
+                values = line.split()
+                rssi = int(values[8])
+                debug.append({'mac': values[0], 'rssi': rssi, 'psm': values[9], 'time': values[10],
+                              'bw': values[2], 'mcs': values[3], })
+                if self.rssi_min and rssi < self.rssi_min:
+                    continue
                 self.last_results.append(m.group(1))
 
-        _LOGGER.debug('results %s', str(self.last_results))
+        _LOGGER.debug('results %s', str(debug))
 
         return
