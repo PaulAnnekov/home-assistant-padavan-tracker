@@ -56,6 +56,12 @@ Installation (Xiaomi MiWiFi Mini Router only)
       password: admin # Web interface user pass
   ```  
 
+Notes
+-----
+
+- Sometimes/most of the time web interface will be inaccessible while this component is working. That's because Padavan firmware doesn't allow >1 users authorized from different IPs.
+
+
 Useful links
 -------------
  
