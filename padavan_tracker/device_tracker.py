@@ -9,8 +9,6 @@ from homeassistant.components.device_tracker import (
     DOMAIN, PLATFORM_SCHEMA, CONF_SCAN_INTERVAL, DeviceScanner)
 from homeassistant.const import CONF_URL, CONF_PASSWORD, CONF_USERNAME
 
-REQUIREMENTS = ['requests==2.13.0']
-
 _LOGGER = logging.getLogger(__name__)
 
 CONF_RSSI = 'rssi'

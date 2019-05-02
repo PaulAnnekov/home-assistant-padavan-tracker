@@ -1,0 +1,8 @@
+{
+  "domain": "padavan_tracker",
+  "name": "padavan_tracker",
+  "documentation": "https://github.com/PaulAnnekov/home-assistant-padavan-tracker",
+  "dependencies": [],
+  "codeowners": ["@PaulAnnekov"],
+  "requirements": ["requests==2.13.0"]
+}
