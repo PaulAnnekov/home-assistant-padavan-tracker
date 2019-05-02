@@ -1,1 +1,1 @@
-"""The padavan_tracker component."""
+"""The Padavan Tracker component."""
