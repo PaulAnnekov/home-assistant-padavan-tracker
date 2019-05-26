@@ -59,7 +59,7 @@ Installation (Xiaomi MiWiFi Mini Router only)
 Notes
 -----
 
-- Sometimes/most of the time web interface will be inaccessible while this component is working. That's because Padavan firmware doesn't allow >1 users authorized from different IPs.
+- Sometimes/most of the time web interface will be inaccessible while this component is working. That's because Padavan firmware doesn't allow >1 users authorized from different IPs. Check the possible [workaround](https://github.com/PaulAnnekov/home-assistant-padavan-tracker/issues/8) for this.
 
 
 Useful links
