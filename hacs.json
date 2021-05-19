@@ -1,0 +1,6 @@
+{
+    "name": "Padavan Tracker",
+    "render_readme": true,
+    "domains": ["device_tracker"],
+    "iot_class": ["Local Polling"]
+}
