@@ -4,6 +4,5 @@
   "documentation": "https://github.com/PaulAnnekov/home-assistant-padavan-tracker",
   "dependencies": [],
   "codeowners": ["@PaulAnnekov"],
-  "requirements": ["requests==2.13.0"],
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
