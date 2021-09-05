@@ -5,8 +5,11 @@
 This device tracker component allows you to get **wireless** devices presence from 
 [Padavan](https://bitbucket.org/padavan/rt-n56u)-based routers.
 
-Tested on Xiaomi MiWiFi Mini Router with Padavan 3.4.3.9-099_195eba6. Probably need additional changes to make it work 
-on other devices.
+Devices support:
+- tested on Xiaomi MiWiFi Mini Router with Padavan 3.4.3.9-099_195eba6
+- [reported](https://github.com/PaulAnnekov/home-assistant-padavan-tracker/issues/11) working on Asus N56U Router with Padavan 3.4.3.9-099
+
+Probably need additional changes to make it work on other devices.
 
 Purpose
 -------
