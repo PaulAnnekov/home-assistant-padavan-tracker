@@ -1,6 +1,6 @@
 # Home Assistant Padavan Device Tracker
 
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/hacs/integration)
 
 This device tracker component allows you to get **wireless** devices presence from 
 [Padavan](https://bitbucket.org/padavan/rt-n56u)-based routers.
